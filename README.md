@@ -1,25 +1,19 @@
-# hello-express
+# Image Search Abstration Layer
 
-A server that serves a webpage, its resources, and some data
+The purpose of the project is to build an image search abstraction layer.
+
+## UX
+
+As a user, I can get the image URLs, description and page URLs for a set of images relating to a given string.
+
+As a user, I can paginate through the responses by adding a `?page=2` parameter to the URL.
+
+As a user, I can get a list of the most recently submitted search strings.
 
 
-## Your Project
+## Acknowledgements
 
-On the front-end,
-
-- Edit `views/index.html` to change the content of the webpage
-- `public/client.js` is the javacript that runs when you load the webpage
-- `public/style.css` is the styles for `views/index.html`
-- Drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy.
-
+[Agbanusi John](https://dev.to/agbanusi/fcc-project-4-image-search-abstraction-layer-fk4)
 
 ## Made by [Glitch](https://glitch.com/)
 
