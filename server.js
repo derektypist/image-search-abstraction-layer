@@ -3,19 +3,13 @@
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
-require('dotenv').config();
 const express = require("express");
 const app = express();
 let mongo = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 let request = require('request');
 
-// our default array of dreams
-const dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
+
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
@@ -23,15 +17,17 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+mongo.connect(process.env.DB,{useUnifiedTopology:true});
 // https://expressjs.com/en/starter/basic-routing.html
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
 // send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
+app.get('/imagesearch:/search', (request, response) => {
   // express helps us take JS objects and send them as JSON
-  response.json(dreams);
+  response.json(0);
 });
 
 // listen for requests :)
