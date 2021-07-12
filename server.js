@@ -5,6 +5,9 @@
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
+let mongo = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
+let request = require('request');
 
 // our default array of dreams
 const dreams = [
