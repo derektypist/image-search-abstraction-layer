@@ -23,23 +23,24 @@
     </header>
 
     <main>
-      <h2>Oh hi,</h2>
+      <h2>Paste the search term in the form below or you could do a direct search by appending /imagesearch/[search term]</h2>
 
-      <p>Tell me your hopes and dreams:</p>
+      <p>If unsure, just fill in the form below</p>
 
       <form>
         <label>
-          New Dream
-          <input name="dream" type="text" maxlength="100" required placeholder="Dreams!">
+          Search Term
+          <input name="searchterm" type="text" maxlength="100" required placeholder="Search Term">
         </label>
-        <button type="submit" id="submit-dream">Add Dream</button>
+        <label>
+          Paginate
+        <input name="paginate" type="number" required placeholder="Paginate"></label>
+        <button type="submit" id="submit-dream">Search</button>
       </form>
 
-      <section class="dreams">
-        <ul id="dreams">
-          <em>loading dreams&hellip;</em>
-        </ul>
-      </section>
+      <h3>
+        Add ?
+      </h3>
     </main>
 
     <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
