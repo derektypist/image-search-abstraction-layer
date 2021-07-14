@@ -33,7 +33,7 @@ mongo.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (e
   let search = req.params.search;
   let page = req.query.offset? req.query.offset :1;
   db.collection('img').insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
-    request(bing+search+'&searchType=image',{json:true}, (err,red,data) => {
+    request(ggle+search+'&searchType=image',{json:true}, (err,red,data) => {
       let dat=data.items.map((i) => {return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
       dat = dat.slice(0,page);
       res.send(dat);
