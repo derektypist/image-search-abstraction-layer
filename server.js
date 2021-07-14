@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Connect to DB
 mongo.connect(process.env.DB,{useUnifiedTopology:true}, (err,client) => {
-  let db = client.db('new');
+  var db = client.db('new');
   if (err) throw err;
 });
 // https://expressjs.com/en/starter/basic-routing.html
@@ -33,7 +33,11 @@ app.get('/imagesearch:/search', (req, res) => {
   let search = req.params.search;
   let page = req.query.offset? req.query.offset :1;
   db.collection('img').insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
-    request(bing+search+'')
+    request(bing+search+'&searchType=image',{json:true}, (err,red,data) => {
+      let dat=data.items.map((i) => {return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
+      dat = dat.slice(0,page);
+      
+    });
   });
   
 });
