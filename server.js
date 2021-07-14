@@ -17,8 +17,11 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
-mongo.connect(process.env.DB,{useUnifiedTopology:true});
+// Connect to DB
+mongo.connect(process.env.DB,{useUnifiedTopology:true}, (err,client) => {
+  let db = client.db('new');
+  if (err) throw err;
+});
 // https://expressjs.com/en/starter/basic-routing.html
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
