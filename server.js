@@ -27,10 +27,13 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// send the default array of dreams to the webpage
-app.get('/imagesearch:/search', (request, response) => {
-  // express helps us take JS objects and send them as JSON
-  response.json(0);
+
+app.get('/imagesearch:/search', (req, res) => {
+  
+  let search = req.params.search;
+  let page = req.query.offset? req.query.offset :1;
+  
+  
 });
 
 // listen for requests :)
