@@ -1,4 +1,4 @@
-# Image Search Abstration Layer
+# Image Search Abstraction Layer
 
 The purpose of the project is to build an image search abstraction layer.
 
