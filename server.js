@@ -32,7 +32,7 @@ mongo.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (e
   
   let search = req.params.search;
   let page = req.query.offset? req.query.offset :1;
-  let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=`
+  let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=`;
   db.collection('img').insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
     request(ggle+search+'&searchType=image',{json:true}, (err,red,data) => {
       let dat=data.items.map((i) => {return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
