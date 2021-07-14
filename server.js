@@ -32,7 +32,9 @@ app.get('/imagesearch:/search', (req, res) => {
   
   let search = req.params.search;
   let page = req.query.offset? req.query.offset :1;
-  
+  db.collection('img').insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
+    request(bing+search+'')
+  });
   
 });
 
