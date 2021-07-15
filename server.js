@@ -8,7 +8,7 @@ const app = express();
 let mongo = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 let request = require('request');
-const apiRoutes = requi
+const apiRoutes = require('./routes/api.js')
 
 
 // make all the files in 'public' available
@@ -48,9 +48,17 @@ mongo.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (e
 });
 
 
+// Routing for API
+apiRoutes(app);
 
+// 404 Not Found Middleware
+app.use(function(req,res,next) {
+  res.status(404).type('text').send('Not Found');
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
+module.exports = app; // For Testing
