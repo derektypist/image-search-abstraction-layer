@@ -8,7 +8,7 @@ const app = express();
 let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 let request = require('request');
-let apiRoutes = require('./apiroutes')
+let apiRoutes = require('./apiroutes');
 
 
 // make all the files in 'public' available
@@ -23,34 +23,11 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// Connect to DB
-mongoose.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (err) => {
-  if (err) {
-    console.log('err');
-  }
-  
-  app.get('/imagesearch:/search', (req, res) => {
-  
-  let search = req.params.search;
-  let page = req.query.offset? req.query.offset :1;
-  let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=`;
-  db.collection('img').insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
-    request(ggle+search+'&searchType=image',{json:true}, (err,red,data) => {
-      let dat=data.items.map((i) => {return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
-      dat = dat.slice(0,page);
-      res.send(dat);
-      
-    });
-  });
-  
-});
-  
-  
-});
+
 
 
 // Routing for API
-appRoutes(app);
+apiRoutes(app);
 
 // 404 Not Found Middleware
 app.use(function(req,res,next) {
