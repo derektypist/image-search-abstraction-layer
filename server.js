@@ -8,7 +8,7 @@ const app = express();
 let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 let request = require('request');
-let apiRoutes = require('./apiroutes');
+require('./apiroutes');
 
 
 // make all the files in 'public' available
@@ -24,11 +24,6 @@ app.get("/", (request, response) => {
 });
 
 
-
-
-// Routing for API
-apiRoutes(app);
-
 // 404 Not Found Middleware
 app.use(function(req,res,next) {
   res.status(404).type('text').send('Not Found');
@@ -39,4 +34,4 @@ const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
 
-module.exports = app; // For Testing
+

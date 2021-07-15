@@ -14,6 +14,7 @@ As a user, I can get a list of the most recently submitted search strings.
 ## Acknowledgements
 
 [Agbanusi John](https://dev.to/agbanusi/fcc-project-4-image-search-abstraction-layer-fk4)
+
 [Rohan Kadam](https://https://github.com/rohankadam1395)
 
 ## Made by [Glitch](https://glitch.com/)
