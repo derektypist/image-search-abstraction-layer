@@ -5,10 +5,10 @@
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
-let mongo = require('mongodb').MongoClient;
+let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 let request = require('request');
-const apiRoutes = require('./routes/api.js')
+let apiRoutes = require('./apiroutes')
 
 
 // make all the files in 'public' available
@@ -24,9 +24,10 @@ app.get("/", (request, response) => {
 });
 
 // Connect to DB
-mongo.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (err,client) => {
-  var db = client.db('new');
-  if (err) throw err;
+mongoose.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (err) => {
+  if (err) {
+    console.log('err');
+  }
   
   app.get('/imagesearch:/search', (req, res) => {
   
@@ -49,7 +50,7 @@ mongo.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true}, (e
 
 
 // Routing for API
-apiRoutes(app);
+appRoutes(app);
 
 // 404 Not Found Middleware
 app.use(function(req,res,next) {
