@@ -24,7 +24,8 @@ module.exports = function(app) {
     app.get('/imagesearch/:search',(req,res) => {
       let search = req.params.search;
       let page = req.query.offset? req.query.offset:1;
-      let ggle = 
+      let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=`;
+      searchQueryModel.insertOne();
     });
     
     // Search for top 10
