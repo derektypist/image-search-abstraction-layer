@@ -19,8 +19,12 @@ module.exports = function(app) {
     console.log('Successfully connected to database');
     
     // Search for top 10
-    app.get('/data',(req,res) => {
-            console.log('');
+    app.get('/latest/imagesearch',(req,res) => {
+            searchQueryModel.find({},null,{sort:{_id:-1},limit:10},(err,docs) => {
+              if (err) {
+                co
+              }
+            });
             });
   });
 };
