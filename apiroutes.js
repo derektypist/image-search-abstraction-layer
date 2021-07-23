@@ -25,7 +25,9 @@ module.exports = function(app) {
       let search = req.params.search;
       let page = req.query.offset? req.query.offset:1;
       let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=`;
-      searchQueryModel.insertOne();
+      searchQueryModel.findOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
+        request(ggle+search+'&searchType')
+      });
     });
     
     // Search for top 10
