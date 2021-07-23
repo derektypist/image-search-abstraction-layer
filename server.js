@@ -8,9 +8,16 @@ const app = express();
 let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 let request = require('request');
-require('./apiroutes');
 
 
+const Schema = mongoose.Schema;
+
+// Create Instance of Schema
+let searchQuerySchema = new Schema({
+  query: String
+});
+
+let searchQueryModel = mongoose.model('searchQueryModel',searchQuerySchema);
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
@@ -23,6 +30,48 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
+
+mongoose.connect(process.env.DB, {useNewUrlParser: true, useUnifiedTopology:true}, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    
+    console.log('Successfully connected to database');
+    
+    
+    // Get JSON Response
+    
+    app.get('/imagesearch/:search',(req,res) => {
+      let search = req.params.search;
+      let page = req.query.offset? req.query.offset:1;
+      let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=`;
+      searchQueryModel.insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
+        request(ggle+search+'&searchType=image',{json:true},(err,red,data) => {
+          let dat=data.items.map((i) =>{return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
+          dat=dat.slice(0,page);
+          res.send(dat);
+        });
+      });
+    });
+    
+    // Search for top 10
+    app.get('/latest/imagesearch',(req,res) => {
+            searchQueryModel.find({},null,{sort:{_id:-1},limit:10},(err,docs) => {
+              if (err) {
+                console.log(err);
+              }
+              
+              res.json(docs);
+            });
+          });
+    
+    // POST Method
+    app.post('/api/imagesearch', (req,res) => {
+      let search = req.body.search;
+      search = encodeURI(search);
+      let page = req.body.page ? req.body.page:1;
+    });
+  });
 
 // 404 Not Found Middleware
 app.use(function(req,res,next) {
