@@ -7,20 +7,21 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const axios = require('')
+const axios = require('axios');
 
+const Schema = mongoose.Schema;
 
+// Create Instance of Schema
+let searchQuerySchema = new Schema({
+  images: String
+});
+
+let searchQueryModel = mongoose.model('searchQueryModel',searchQuerySchema);
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
-
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
-});
 
 
 mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}, (err) => {
@@ -29,11 +30,11 @@ mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}
     }
     
     console.log('Successfully connected to database');
+});
     
+// Get JSON Response
     
-    // Get JSON Response
-    
-    app.get('/api',(req,res) => {
+app.get('/api',(req,res) => {
       let search = req.query.search;
       let page = req.query.offset? req.query.offset:1;
       let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image&imgType=photo`;
@@ -67,7 +68,16 @@ mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}
       });
       
     });
-  });
+  
+
+
+
+// https://expressjs.com/en/starter/basic-routing.html
+app.get("/", (request, response) => {
+  response.sendFile(__dirname + "/views/index.html");
+});
+
+
 
 // 404 Not Found Middleware
 app.use(function(req,res,next) {
