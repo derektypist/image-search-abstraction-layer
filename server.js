@@ -5,6 +5,7 @@
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
+let mongo = require('mongodb').MongoClient;
 let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 let request = require('request');
@@ -31,7 +32,8 @@ app.get("/", (request, response) => {
 });
 
 
-mongoose.connect(process.env.DB, {useNewUrlParser: true, useUnifiedTopology:true}, (err) => {
+mongo.connect(process.env.DB, {useNewUrlParser: true, useUnifiedTopology:true}, (err,client) => {
+    let db=client.db('new');
     if (err) {
       console.log(err);
     }
