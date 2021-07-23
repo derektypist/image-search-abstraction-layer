@@ -5,7 +5,6 @@
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
-let mongo = require('mongodb').MongoClient;
 let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 let request = require('request');
@@ -32,8 +31,7 @@ app.get("/", (request, response) => {
 });
 
 
-mongo.connect(process.env.DB, {useNewUrlParser: true, useUnifiedTopology:true}, (err,client) => {
-    let db=client.db('new');
+mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}, (err) => {
     if (err) {
       console.log(err);
     }
@@ -46,14 +44,8 @@ mongo.connect(process.env.DB, {useNewUrlParser: true, useUnifiedTopology:true}, 
     app.get('/imagesearch/:search',(req,res) => {
       let search = req.params.search;
       let page = req.query.offset? req.query.offset:1;
-      let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=`;
-      searchQueryModel.insertOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
-        request(ggle+search+'&searchType=image',{json:true},(err,red,data) => {
-          let dat=data.items.map((i) =>{return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
-          dat=dat.slice(0,page);
-          res.send(dat);
-        });
-      });
+      let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image&imgType=photo`;
+      axios.get(ggle)
     });
     
     // Search for top 10
