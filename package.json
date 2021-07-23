@@ -15,7 +15,8 @@
     "body-parser": "^1.19.0",
     "mongoose": "^5.13.2",
     "axios": "^0.21.1",
-    "fetch": "^1.1.0"
+    "fetch": "^1.1.0",
+    "request": "^2.88.2"
   },
   "engines": {
     "node": "12.x"

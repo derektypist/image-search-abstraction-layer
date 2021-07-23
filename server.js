@@ -23,7 +23,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+// Connect to Database
 mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}, (err) => {
     if (err) {
       console.log(err);
@@ -45,8 +45,8 @@ app.get('/api',(req,res) => {
       });
     });
     
-    // Search for top 10
-    app.get('/data',(req,res) => {
+// Search for top 10
+app.get('/data',(req,res) => {
             searchQueryModel.find({},null,{sort:{_id:-1},limit:10},(err,docs) => {
               if (err) {
                 console.log(err);
