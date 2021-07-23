@@ -6,6 +6,7 @@
 const express = require("express");
 const app = express();
 let mongoose = require('mongoose');
+let axios = require('axios');
 const bodyParser = require('body-parser');
 let request = require('request');
 
@@ -42,10 +43,14 @@ mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}
     // Get JSON Response
     
     app.get('/imagesearch/:search',(req,res) => {
-      let search = req.params.search;
+      let search = req.query.search;
       let page = req.query.offset? req.query.offset:1;
       let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image&imgType=photo`;
-      axios.get(ggle)
+      axios.get(ggle).then(data => {
+        res.json(data.data.items);
+      }).catch(err => {
+        res.send("Error in fetching the images");
+      });
     });
     
     // Search for top 10
@@ -61,9 +66,14 @@ mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}
     
     // POST Method
     app.post('/api/imagesearch', (req,res) => {
-      let search = req.body.search;
-      search = encodeURI(search);
-      let page = req.body.page ? req.body.page:1;
+      let doc = new searchQueryModel({query:req.body.searchQuery});
+      doc.save((err) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Saved successfully");
+        res.send("Posted successfully")
+      
     });
   });
 
