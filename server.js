@@ -35,15 +35,11 @@ mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}
     
 // Get JSON Response
     
-app.get('/api',(req,res) => {
+app.get('/imagesearch/:search',(req,res) => {
       let search = req.query.search;
       let page = req.query.offset? req.query.offset:1;
       let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image&imgType=photo`;
-      axios.get(ggle).then(data => {
-        res.json(data.data.items);
-      }).catch(err => {
-        res.send("Error in fetching the images");
-      });
+      searchQueryModel.findOne();
     });
     
 // Search for top 10
