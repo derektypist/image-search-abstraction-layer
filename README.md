@@ -10,6 +10,10 @@ As a user, I can paginate through the responses by adding a `?page=2` parameter 
 
 As a user, I can get a list of the most recently submitted search strings.
 
+### Information Architecture
+
+There are two fields - term (a string)
+
 
 ## Acknowledgements
 
