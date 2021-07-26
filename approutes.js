@@ -28,7 +28,7 @@ mongoose.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true},
     app.get('/imagesearch/:search',(req,res) => {
       let search = req.query.search;
       let page = req.query.offset? req.query.offset:1;
-      let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image&imgType=photo`;
+      let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image`;
       searchQueryModel.findOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
         request(ggle,{json:true},(err,red,data) => {
           let dat=data.items.map((i) => {return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
