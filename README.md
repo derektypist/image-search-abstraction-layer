@@ -12,7 +12,7 @@ As a user, I can get a list of the most recently submitted search strings.
 
 ### Information Architecture
 
-There are two fields - term (a string)
+There are two fields - term (a string) and searched on (a date).
 
 
 ## Acknowledgements
