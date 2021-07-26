@@ -7,7 +7,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const axios = require('axios');
 const request = require('request');
 
 const Schema = mongoose.Schema;
@@ -25,18 +24,24 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+
+// https://expressjs.com/en/starter/basic-routing.html
+app.get("/", (request, response) => {
+  response.sendFile(__dirname + "/views/index.html");
+});
+
 // Connect to Database
-mongoose.connect(process.env.DB, {useNewUrlParser:true, useUnifiedTopology:true}, (err) => {
+mongoose.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true},(err) => {
     if (err) {
       console.log(err);
     }
     
     console.log('Successfully connected to database');
-});
+  
+    // Get JSON Response
     
-// Get JSON Response
-    
-app.get('/imagesearch/:search',(req,res) => {
+    app.get('/imagesearch/:search',(req,res) => {
       let search = req.query.search;
       let page = req.query.offset? req.query.offset:1;
       let ggle = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=017576662512468239146:omuauf_lfve&q=${search}&searchType=image&imgType=photo`;
@@ -48,9 +53,9 @@ app.get('/imagesearch/:search',(req,res) => {
         });
       });
     });
-    
-// Search for top 10
-app.get('/latest/imagesearch',(req,res) => {
+  
+    // Search for top 10
+    app.get('/latest/imagesearch',(req,res) => {
     searchQueryModel.find({},null,{sort:{searched_on:-1},limit:10},(err,docs) => {
       if (err) {
           console.log(err);
@@ -58,22 +63,17 @@ app.get('/latest/imagesearch',(req,res) => {
               
       res.json(docs);
       });
-});
-    
-// POST Method
-app.post('/api/imagesearch', (req,res) => {
+    });
+  
+    // POST Method
+    app.post('/api/imagesearch', (req,res) => {
       let search = req.body.search;
       search = encodeURI(search);
       let page = req.body.page ? req.body.page:1; 
     });
   
-
-
-
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
 });
+    
 
 
 
