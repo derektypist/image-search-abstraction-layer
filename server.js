@@ -46,7 +46,7 @@ app.get('/api',(req,res) => {
     });
     
 // Search for top 10
-app.get('/data',(req,res) => {
+app.get('/latest/imagesearch',(req,res) => {
             searchQueryModel.find({},null,{sort:{_id:-1},limit:10},(err,docs) => {
               if (err) {
                 console.log(err);
@@ -56,8 +56,8 @@ app.get('/data',(req,res) => {
             });
           });
     
-    // POST Method
-    app.post('/data', (req,res) => {
+// POST Method
+app.post('/data', (req,res) => {
       let doc = new searchQueryModel({images:req.body.searchQuery});
       doc.save((err) => {
         if (err) {
