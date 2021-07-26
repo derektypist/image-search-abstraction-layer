@@ -63,8 +63,8 @@ app.get('/latest/imagesearch',(req,res) => {
 // POST Method
 app.post('/api/imagesearch', (req,res) => {
       let search = req.body.search;
-      
-      
+      search = encodeURI(search);
+      let page = req.body.page ? req.body.page:1; 
     });
   
 
