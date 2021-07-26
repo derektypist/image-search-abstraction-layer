@@ -43,7 +43,8 @@ app.get('/imagesearch/:search',(req,res) => {
       searchQueryModel.findOne({term:search,searched_on:new Date().toUTCString()}, (err,doc) => {
         request(ggle,{json:true},(err,red,data) => {
           let dat=data.items.map((i) => {return{image_url:i.link,alt_text:i.snippet,page_url:i.image.contextLink}});
-          dat=d
+          dat=dat.slice(0,page);
+          res.send(dat);
         });
       });
     });
