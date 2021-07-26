@@ -13,7 +13,8 @@ const Schema = mongoose.Schema;
 
 // Create Instance of Schema
 let searchQuerySchema = new Schema({
-  images: String
+  term: String,
+  searched_on: Date
 });
 
 let searchQueryModel = mongoose.model('searchQueryModel',searchQuerySchema);
@@ -47,25 +48,19 @@ app.get('/api',(req,res) => {
     
 // Search for top 10
 app.get('/latest/imagesearch',(req,res) => {
-            searchQueryModel.find({},null,{sort:{_id:-1},limit:10},(err,docs) => {
-              if (err) {
-                console.log(err);
-              }
+    searchQueryModel.find({},null,{sort:{searched_on:-1},limit:10},(err,docs) => {
+      if (err) {
+          console.log(err);
+      }
               
-              res.json(docs);
-            });
-          });
+      res.json(docs);
+      });
+});
     
 // POST Method
-app.post('/data', (req,res) => {
-      let doc = new searchQueryModel({images:req.body.searchQuery});
-      doc.save((err) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log("Saved successfully");
-        res.send("Posted successfully");
-      });
+app.post('/api/imagesearch', (req,res) => {
+      let search = req.body.search;
+      
       
     });
   
