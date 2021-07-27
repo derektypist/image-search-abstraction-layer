@@ -30,12 +30,12 @@
       <!-- Set Up Form -->
       <form action="/api/imagesearch" method="post">
         <label>
-          Search Term
-          <input name="searchterm" type="text" maxlength="100" required placeholder="Search Term">
+          Search Term (Required)
+          <input name="searchterm" type="text" maxlength="100" required placeholder="Search Term (e.g. torch)">
         </label>
         <label>
-          Paginate
-        <input name="paginate" type="number" placeholder="Paginate"></label>
+          Paginate (Optional)
+        <input name="paginate" type="number" placeholder="Paginate (e.g. 1)"></label>
         <button type="submit" id="submit-dream">Search</button>
       </form>
 
