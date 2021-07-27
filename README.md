@@ -4,6 +4,9 @@ The purpose of the project is to build an image search abstraction layer.
 
 ## UX
 
+In the form the user fills the search term (e.g. torch) and the paginate (e.g. 1).  The search term is
+required, but the paginate is optional.
+
 As a user, I can get the image URLs, description and page URLs for a set of images relating to a given string.
 
 As a user, I can paginate through the responses by adding a `?page=2` parameter to the URL.
@@ -13,6 +16,14 @@ As a user, I can get a list of the most recently submitted search strings.
 ### Information Architecture
 
 There are two fields - term (a string) and searched on (a date).
+
+## Features
+
+The ability to search for images.
+
+## Technologies
+
+Uses HTML5, CSS3, JavaScript, MongoDB and Mongoose.
 
 
 ## Acknowledgements
