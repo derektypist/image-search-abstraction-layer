@@ -53,7 +53,13 @@ mongoose.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true},
     app.post('/api/imagesearch', (req,res) => {
       let search = req.body.search;
       search = encodeURI(search);
-      let page = req.body.page ? req.body.page:1; 
+      let page = req.body.page ? req.body.page:1;
+      
+      // Create Instance of searchQueryModel
+      let data = new searchQueryModel({
+        term: search,
+        searched_on: new Date()
+      });
     });
   
 });
