@@ -25,7 +25,13 @@ The ability to search for images.
 
 Uses HTML5, CSS3, JavaScript, MongoDB and Mongoose.
 
+## Testing
 
+Make sure all the user stories have been met.
+
+## Deployment
+
+A live project can be viewed [here]
 ## Acknowledgements
 
 [Agbanusi John](https://dev.to/agbanusi/fcc-project-4-image-search-abstraction-layer-fk4)
