@@ -60,6 +60,13 @@ mongoose.connect(process.env.DB,{useNewUrlParser:true, useUnifiedTopology:true},
         term: search,
         searched_on: new Date()
       });
+      
+      // Attempt to save to DB Collection
+      data.save((err) => {
+        if (err) {
+          res.send("Error saving to DB");
+        }
+      });
     });
   
 });
