@@ -23,7 +23,7 @@ The ability to search for images.
 
 ## Technologies
 
-Uses HTML5, CSS3, JavaScript, MongoDB and Mongoose.
+Uses HTML5, CSS3, JavaScript, Express, Body Parser, Request, MongoDB and Mongoose.
 
 ## Testing
 
@@ -31,12 +31,19 @@ Make sure all the user stories have been met.
 
 ## Deployment
 
-A live project can be viewed [here]
-## Acknowledgements
+A live project can be viewed [here](https://rainbow-best-exhaust.glitch.me/)
 
-[Agbanusi John](https://dev.to/agbanusi/fcc-project-4-image-search-abstraction-layer-fk4)
+## Credits
 
-[Rohan Kadam](https://https://github.com/rohankadam1395)
+### Content
+
+Most taken from Agbanusi John or Rohan Kadam.  Did Google Search on FreeCode Image Search Abstraction Layer.
+In GitHub did search on image-search-abstraction-layer.
+
+### Acknowledgements
+
+- [Agbanusi John](https://dev.to/agbanusi/fcc-project-4-image-search-abstraction-layer-fk4)
+- [Rohan Kadam](https://https://github.com/rohankadam1395)
 
 ## Made by [Glitch](https://glitch.com/)
 
